@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Two</title> 
+        <!-- Title of Webpage-->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
+        <!--Linking mapbox-->
+    <link rel="stylesheet" href="style.css"> 
+        <!--Linking style sheet-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+            <!-- Bootstrap style sheet link -->
+</head>
+
+
+<body style="background-color: #d5ddd796;"></body>
+    <!-- adding background color to webpage, but not really visible, just filling small gap -->
+
+<!-- Bootstrap navbar -->
+<nav class="navbar navbar-expand-lg" style="background-color: #30513591;">
+        <!-- setting navbar and color -->
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">GGR472 Lab2</a>
+        <!-- makes toggles work on small screens -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- sections in nav bar -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Map</a>
+                        <!-- Brings you to the home page (map) -->
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link"
+                        href="https://www.toronto.ca/community-people/health-wellness-care/health-programs-advice/hot-weather/about-torontos-heat-relief-strategy/"
+                        target="_blank">Toronto's Heat Relief Strategy</a>
+                            <!-- Link in nav bar to Heat releif strategy -->
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="https://climateatlas.ca/urban-heat-island-effect" target="_blank">Urban
+                        Heat Island Information</a>
+                             <!-- Link in nav bar to Urban Heat Island Information -->
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<!-- Adding map to webpage -->
+<div id="my-map" class="map-container"></div>
+
+<!-- Linking JavaScript -->
+<script src="script.js"></script>
+
+<!-- Creating Heading -->
+<div class="container text-center p-1 mb-2">
+    <!-- headings/text -->
+    <div>
+        <h2>Heat Relief Centers and Green Spaces in Toronto</h2>
+        <h6>Spaces to cool down</h6>
+        <h9>- Points showing Heat Relief Services (Click to see facility type!)</h9><br> <!-- adding line break -->
+        <h9>- Green polygons showing Green Spaces</h9>
+    </div>
+    </body>
+
+</html>
