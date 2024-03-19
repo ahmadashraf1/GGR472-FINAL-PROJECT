@@ -1,0 +1,40 @@
+---
+title: "Data Analysis"
+author: "Ahmad Ashraf"
+date: "2024-03-19"
+output: pdf_document
+---
+
+```{r, message=FALSE, warning=FALSE}
+#install.packages("sf")
+library(sf)
+library(dplyr)
+```
+
+```{r}
+geojson_data <- st_read("/Users/ahmadashraf/Desktop/GGR472/GGR472-FINAL-PROJECT/Air Conditioned and Cool Spaces copy.geojson")
+```
+
+```{r}
+count <- table(geojson_data$locationDesc)
+print(count)
+```
+
+```{r}
+geojson_data <- geojson_data %>%
+  mutate(NewLocation = case_when(
+    locationDesc %in% c("Indoor Pool", "Outdoor Pool", "Pool", "Splashpad", "Wading Pool") ~ "Pool",
+    locationDesc %in% c("Civic Centre", "Community Centre", "YMCA location") ~ "Community Centre",
+    locationDesc %in% c("Drop-in", "SSHA Respite", "SSHA Shelter") ~ "Shelter Services",
+    locationDesc %in% c("Library") ~ "Library",
+    TRUE                           ~ "Mall"
+  ))
+```
+
+```{r}
+count_new <- table(geojson_data$NewLocation)
+print(count_new)
+```
+
+
+
