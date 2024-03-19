@@ -24,59 +24,61 @@
 
 
 <body style="background-color: #d5ddd796;">
-<!-- adding background color to webpage, but not really visible, just filling small gap -->
+    <!-- adding background color to webpage, but not really visible, just filling small gap -->
 
-<!-- Bootstrap navbar -->
-<nav class="navbar navbar-expand-lg" style="background-color: #30513591;">
-    <!-- setting navbar and color -->
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">GGR472 Lab3</a>
-        <!-- makes toggles work on small screens -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <!-- Bootstrap navbar -->
+    <nav class="navbar navbar-expand-lg" style="background-color: #30513591;">
+        <!-- setting navbar and color -->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">GGR472 Lab3</a>
+            <!-- makes toggles work on small screens -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                <!-- sections in nav bar -->
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Map</a>
-                    <!-- Brings you to the home page (map) -->
-                </li>
+                    <!-- sections in nav bar -->
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Map</a>
+                        <!-- Brings you to the home page (map) -->
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link"
-                        href="https://www.toronto.ca/community-people/health-wellness-care/health-programs-advice/hot-weather/about-torontos-heat-relief-strategy/"
-                        target="_blank">Toronto's Heat Relief Strategy</a>
-                    <!-- Link in nav bar to Heat releif strategy -->
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="https://www.toronto.ca/community-people/health-wellness-care/health-programs-advice/hot-weather/about-torontos-heat-relief-strategy/"
+                            target="_blank">Toronto's Heat Relief Strategy</a>
+                        <!-- Link in nav bar to Heat releif strategy -->
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="https://climateatlas.ca/urban-heat-island-effect" target="_blank">Urban
-                        Heat Island Information</a>
-                    <!-- Link in nav bar to Urban Heat Island Information -->
-                </li>
-            </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://climateatlas.ca/urban-heat-island-effect"
+                            target="_blank">Urban
+                            Heat Island Information</a>
+                        <!-- Link in nav bar to Urban Heat Island Information -->
+                    </li>
+                </ul>
 
+            </div>
         </div>
-    </div>
-</nav>
-<!-- Adding map to webpage -->
-<div id="my-map" class="map-container"></div>
+    </nav>
+    <!-- Adding map to webpage -->
+    <div id="my-map" class="map-container"></div>
 
-<!-- For Map Search Engine and Map Control Button -->
-<div class='map-search-container'>
-    <label>Find Your Neighborhood</label>
-    <div id="geocoder" class="geocoder"></div>
-    <button type="button" class="btn btn-primary btn-sm" id="returnbutton">Return to City View</button>
-</div>
- 
-<!-- legend -->
-<div id='legend' class='legend'>
-    <h4>Heat Relief Spaces</h4>
-</div>
+    <!-- For Map Search Engine and Map Control Button -->
+    <div class='map-search-container'>
+        <label>Find Your Neighborhood</label>
+        <div id="geocoder" class="geocoder"></div>
+        <button type="button" class="btn btn-primary btn-sm" id="returnbutton">Return to City View</button>
+    </div>
+
+    <!-- legend -->
+    <div id='legend' class='legend'>
+        <h4>Heat Relief Spaces</h4>
+    </div>
 
     <!-- Adding and removing layers -->
     <div class='map-data-container'>
@@ -90,9 +92,9 @@
             <input class="form-check-input" type="checkbox" value="" id="pointcheck" checked>
             Heat Relief Network
         </div>
-
-<!-- script -->
-<script src="example_script.js"></script>
+    </div>
+        <!-- script -->
+        <script src="example_script.js"></script>
 
 </body>
 

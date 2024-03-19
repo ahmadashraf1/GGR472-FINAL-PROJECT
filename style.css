@@ -1,0 +1,12 @@
+/* Map Container*/
+.map-container {
+    position: absolute;
+    top: 6.5%;
+    /* move map down to leave space for navbar */
+    bottom: 0;
+    /* map reaches the bottom of the screen*/
+    width: 100%;
+    /* map fills the width of the page*/
+    z-index: 0;
+    /* map will be below the heading*/
+}
