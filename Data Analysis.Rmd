@@ -36,5 +36,8 @@ count_new <- table(geojson_data$NewLocation)
 print(count_new)
 ```
 
+```{r}
+st_write(geojson_data, "/Users/ahmadashraf/Desktop/GGR472/GGR472-FINAL-PROJECT/HeatReliefNetwork.geojson")
+```
 
 
