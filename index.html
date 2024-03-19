@@ -3,96 +3,91 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab Two</title>
-    <!-- Title of Webpage-->
+    <title>Toronto Heat Relief Network</title>
+    <!--Linking mapbox-->
     <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
-    <!--Linking mapbox-->
+    <!--Linking mapbox geocoder-->
     <script
         src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.2/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet"
         href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.2/mapbox-gl-geocoder.css"
         type="text/css">
-    <!-- mapbox geocoder link -->
-    <link rel="stylesheet" href="style.css">
     <!--Linking style sheet-->
+    <link rel="stylesheet" href="style.css">
+    <!-- Linking Bootstrap style sheet-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <!-- Bootstrap style sheet link -->
+
 </head>
 
+<body>
+    <!-- Bootstrap navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <!-- setting navbar -->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Toronto's Heat Relief Network</a>
+            <!-- makes toggles work on small screens -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-<body style="background-color: #d5ddd796;">
-<!-- adding background color to webpage, but not really visible, just filling small gap -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-<!-- Bootstrap navbar -->
-<nav class="navbar navbar-expand-lg" style="background-color: #30513591;">
-    <!-- setting navbar and color -->
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">GGR472 Lab3</a>
-        <!-- makes toggles work on small screens -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                <!-- sections in nav bar -->
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Map</a>
+                    <!-- sections in nav bar -->
                     <!-- Brings you to the home page (map) -->
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <!--Drowpdown Menu-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Resources
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!--Heat Relief Straegy Link-->
+                            <li>
+                                <a class="dropdown-item"
+                                    href="https://www.toronto.ca/community-people/health-wellness-care/health-programs-advice/hot-weather/about-torontos-heat-relief-strategy/"
+                                    target="_blank">
+                                    Toronto's Heat Relief Strategy</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <!--Urban Heat Island Info-->
+                            <li>
+                                <a class="dropdown-item" href="https://climateatlas.ca/urban-heat-island-effect"
+                                    target="_blank">Urban
+                                    Heat Island Information</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Brings you to About Us (maybe) -->
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">About Us</a>
+                    </li>
+                </ul>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link"
-                        href="https://www.toronto.ca/community-people/health-wellness-care/health-programs-advice/hot-weather/about-torontos-heat-relief-strategy/"
-                        target="_blank">Toronto's Heat Relief Strategy</a>
-                    <!-- Link in nav bar to Heat releif strategy -->
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="https://climateatlas.ca/urban-heat-island-effect" target="_blank">Urban
-                        Heat Island Information</a>
-                    <!-- Link in nav bar to Urban Heat Island Information -->
-                </li>
-            </ul>
-
+            </div>
         </div>
-    </div>
-</nav>
-<!-- Adding map to webpage -->
-<div id="my-map" class="map-container"></div>
+    </nav>
 
-<!-- For Map Search Engine and Map Control Button -->
-<div class='map-search-container'>
-    <label>Find Your Neighborhood</label>
-    <div id="geocoder" class="geocoder"></div>
-    <button type="button" class="btn btn-primary btn-sm" id="returnbutton">Return to City View</button>
-</div>
- 
-<!-- legend -->
-<div id='legend' class='legend'>
-    <h4>Heat Relief Spaces</h4>
-</div>
+    <!-- Adding map to webpage -->
+    <div id="my-map" class="map-container"></div>
 
-    <!-- Adding and removing layers -->
-    <div class='map-data-container'>
-        <label>Add/Remove Layers</label>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="polygoncheck" checked>
-            Green Spaces
-        </div>
+    <!-- Linking external JavaScript files (note - need the second link for dropdown menu to work) -->
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="pointcheck" checked>
-            Heat Relief Network
-        </div>
-
-<!-- script -->
-<script src="script.js"></script>
 
 </body>
 
