@@ -29,7 +29,7 @@ map.on('load', () => {
     map.addSource('temp-data', {
         //adding temp
         type: 'geojson',
-        data: 'https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/tempdata/Mean%20temprature.json',
+        data: 'https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/github_LST_neighb_TO_3Y_2019.geojson',
     });
 
     //adding layers
@@ -67,17 +67,27 @@ map.on('load', () => {
         }
     })
     
-
     map.addLayer({
         //temp polygons NOT WORKING
         'id': 'temp-polygon',
         'type': 'fill',
         'source': 'temp-data',
         'paint': {
-            'fill-color': 'hsl(143, 36%, 37%)',
-            //green color
-            'fill-opacity': 0.5
+            'fill-color': [
+                'step', // STEP expression produces stepped results based on value pairs
+                ['get', 'mean_lst_3'], // 
+                '#a64dff', // Colour assigned to any values < first step
+                27.0, '#fee5d9',// Colours assigned to values >= each step
+                28.0, '#fcbba1',
+                29.0, '#fc9272',
+                30.0, '#fb6a4a',
+                31.0, '#de2d26', //30.90 and higher
+                32.0, '#a50f15',
+            ],
+            'fill-opacity': 0.7,
+            'fill-outline-color': 'black'
         }
+
     });
 
 })
