@@ -23,7 +23,7 @@ map.on('load', () => {
     map.addSource('heatrelief-data', {
         //adding heat relief geojson file
         type: 'geojson',
-        data: 'https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/Air%20Conditioned%20and%20Cool%20Spaces%20copy.geojson',
+        data: 'https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson',
     });
 
     map.addSource('temp-data', {
@@ -54,16 +54,11 @@ map.on('load', () => {
             'circle-radius': 5.5,
             'circle-color': [
                 'match',
-                ['get', 'locationCode'],
-                'SPLASHPAD', '#5c99b5',
-                'POOL', '#1b79d1',
-                'INDOOR POOL', '#1b79d1',
-                'OUTDOOR POOL', '#1b79d1',
-                'WADING POOL', '#1b79d1',
-                //all the pools have the same color and will be placed into the same category
-                'LIBRARY', '#e3a92b',
-                'COMM_CNTR', '#1659cc',
-                'SSHA_SHELTER', '#795cbf',
+                ['get', 'NewLocation'],
+                'Pool', '#5c99b5',
+                'Shelter Services', '#1b79d1',
+                'Library', '#1b79d1',
+                'Community Centre', '#1b79d1',
                 '#3b3b40'], // all other values 
             //using match to give each of the identified facilities a different color
             'circle-stroke-color': 'hsl(60, 68%, 57%)',
@@ -71,6 +66,7 @@ map.on('load', () => {
             'circle-stroke-width': 0.5
         }
     })
+    
 
     map.addLayer({
         //temp polygons NOT WORKING
