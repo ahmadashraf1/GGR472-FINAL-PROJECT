@@ -55,11 +55,11 @@ map.on('load', () => {
             'circle-color': [
                 'match',
                 ['get', 'NewLocation'],
-                'Pool', '#5c99b5',
-                'Shelter Services', '#1b79d1',
-                'Library', '#1b79d1',
-                'Community Centre', '#1b79d1',
-                '#3b3b40'], // all other values 
+                'Pool', '#1b79d1',
+                'Shelter Services', '#795cbf',
+                'Library', '#e3a92b',
+                'Community Centre', '#1659cc',
+                '#5c99b5'], // all other values 
             //using match to give each of the identified facilities a different color
             'circle-stroke-color': 'hsl(60, 68%, 57%)',
             //gold rim to points
@@ -68,7 +68,7 @@ map.on('load', () => {
     })
     
     map.addLayer({
-        //temp polygons NOT WORKING
+        //temp polygons 
         'id': 'temp-polygon',
         'type': 'fill',
         'source': 'temp-data',
@@ -88,6 +88,32 @@ map.on('load', () => {
             'fill-outline-color': 'black'
         }
 
+    });
+
+    //Using Checked box to add and remove layers
+    //For Park Polygon
+    document.getElementById('parkcheck').addEventListener('change', (e) => {
+        map.setLayoutProperty(
+            'park-polygon',
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+        );
+    });
+    //For Points
+    document.getElementById('pointcheck').addEventListener('change', (e) => {
+        map.setLayoutProperty(
+            'center-points',
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+        );
+    });
+    //For Temp
+    document.getElementById('tempcheck').addEventListener('change', (e) => {
+        map.setLayoutProperty(
+            'temp-polygon',
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+        );
     });
 
 })

@@ -10,3 +10,56 @@
     z-index: 0;
     /* map will be below the heading*/
 }
+
+/*legend styling*/
+#legend {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: black;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+/*Styling for the headers*/
+#legend h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: medium;
+    color: white;
+}
+/*Style for the text*/
+#legend div {
+    margin-bottom: 5px;
+    font-size: small;
+    color: white;
+    
+}
+/*styling for the ikons*/
+#legend span {
+    display: inline-block;
+    border-radius: 75%;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+
+}
+#legend span2 {
+    display: inline-block;
+    width: 20px;
+    height: 10px;
+    margin-right: 5px;
+}
+
+/*Placement of adding/removing layers checkbox*/
+.map-data-container {
+    position: relative;
+    font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background: rgba(255, 255, 255, 0.8);
+    width: 260px;
+    top: 0;
+    left: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    overflow: visible;
+}
