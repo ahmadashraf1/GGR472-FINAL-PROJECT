@@ -1,6 +1,6 @@
 /* Map Container*/
 .map-container {
-    position: absolute;
+    position: flex;
     top: 6.5%;
     /* move map down to leave space for navbar */
     bottom: 0;
@@ -13,7 +13,8 @@
 
 /*legend styling*/
 #legend {
-    position: absolute;
+    flex-grow: 1;
+    /* position: absolute; */
     bottom: 20px;
     right: 20px;
     background-color: black;
@@ -52,9 +53,37 @@
 
 }
 
+.content-container {
+    display: flex;
+    height: 100vh; /* Adjust height as needed */
+}
+
+/* Style for the map container */
+.map-container {
+    flex: 1; /* Takes up remaining space */
+    /* Add any additional styling needed for the map */
+}
+
+
+/* Style for the sidebar */
+.sidebar {
+    width: 300px; /* Adjust width as needed */
+    background-color: #f8f9fa; /* Light gray background, or whatever color you prefer */
+    display: flex;
+    flex-direction: column; /* Stack the layers control and legend on top of each other */
+    padding: 10px; /* Adjust padding as needed */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Optional: Adds shadow to the left of the sidebar */
+}
+
+/* Style for the layers control section */
+.layers-control {
+    margin-bottom: 20px; /* Space between layers control and legend */
+}
+
+
 /*Placement of adding/removing layers checkbox*/
 .map-data-container {
-    position: relative;
+    position: flex;
     font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     background: rgba(255, 255, 255, 0.8);
     width: 260px;
