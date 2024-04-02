@@ -12,6 +12,24 @@
     /* map will be below the heading*/
 }
 
+.navbar.navbar-expand-lg {
+    background-color: black !important;
+}
+
+.nav-item .dropdown-menu {
+    background-color: black !important; /* Ensures the dropdown background is black */
+}
+
+/* Targeting text directly within the navbar class */
+.navbar a, .navbar navbar-brand {
+    color: white !important; /* Ensures text color is white */
+}
+
+/* Specifically targeting links within the navbar to ensure all states (like hover, visited) are covered */
+.navbar a:hover, .navbar a:visited {
+    color: white !important;
+}
+
 /*legend styling*/
 #legend {
     flex-grow: 1;
@@ -38,7 +56,7 @@
     color: white;
     
 }
-/*styling for the ikons*/
+/*styling for the icons*/
 #legend span {
     display: inline-block;
     border-radius: 75%;
@@ -109,4 +127,13 @@
     position: relative;
     margin: 10px 0 10px;
     width: 100%;
+}
+
+.card img.card-img-top {
+    display: block; /* Make the image a block element */
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%; /* or a specific pixel width */
+    height: auto;
+    max-width: 200px; /* Example to prevent the image from being too large */
 }

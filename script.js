@@ -84,37 +84,15 @@ map.on('load', () => {
             'circle-color': [
                 'match',
                 ['get', 'NewLocation'],
-                'Pool', '#1b79d1',
-                'Shelter Services', '#795cbf',
-                'Library', '#e3a92b',
-                'Community Centre', '#1659cc',
-                '#5c99b5'], // all other values 
+                'Pool', '#2e3ac1',
+                'Shelter Services', '#640b89',
+                'Library', '#00c1bd',
+                'Community Centre', '#CA6F1E',
+                '#2E4053'], // all other values 
             //using match to give each of the identified facilities a different color
             'circle-stroke-color': 'hsl(60, 68%, 57%)',
             //gold rim to points
             'circle-stroke-width': 0.5
-        }
-    })
-
-    map.addLayer({
-        //temp polygons NOT WORKING
-        'id': 'temp-polygon',
-        'type': 'fill',
-        'source': 'temp-data',
-        'paint': {
-            'fill-color': [
-                'step', // STEP expression produces stepped results based on value pairs
-                ['get', 'mean_lst_3'], // 
-                '#a64dff', // Colour assigned to any values < first step
-                27.0, '#fee5d9',// Colours assigned to values >= each step
-                28.0, '#fcbba1',
-                29.0, '#fc9272',
-                30.0, '#fb6a4a',
-                31.0, '#de2d26', //30.90 and higher
-                32.0, '#a50f15',
-            ],
-            'fill-opacity': 0.7,
-            'fill-outline-color': 'black'
         }
     })
 
@@ -143,61 +121,6 @@ map.on('load', () => {
             e.target.checked ? 'visible' : 'none'
         );
     });
-
-    // //Buffers
-    // // Fetch GeoJSON from URL and store response
-    // fetch('https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson')
-    //     .then(response => response.json())
-    //     .then(response => {
-    //         console.log(response); //Check response in console
-    //         heatjson = response; // Store geojson as variable using URL from fetch response
-    //     });
-
-    // document.getElementById('buffcheck').addEventListener('change', (e) => {
-
-    //     // Create empty feature collection for buffers
-    //     let buffresult = {
-    //         "type": "FeatureCollection",
-    //         "features": []
-    //     };
-
-    //     // Loop through each point in the GeoJSON and create buffers
-    //     heatjson.features.forEach((feature) => {
-
-    //         // 1. Create variable for buffer and use turf.buffer function
-    //         let buffer = turf.buffer(feature, 1, { units: 'kilometers' }); // Adjust buffer distance and units as needed
-
-    //         // 2. Use features.push to add the buffer feature to the empty feature collection
-    //         buffresult.features.push(buffer);
-
-    //     });
-
-    //     // Use addSource mapbox method with buffer GeoJSON variable (buffresult) as data source
-    //     map.addSource('buffgeojson', {
-    //         "type": "geojson",
-    //         "data": buffresult // Use buffer GeoJSON variable as data source
-    //     });
-
-    //     // Show buffers on map using styling
-    //     map.addLayer({
-    //         "id": "inputpointbuff",
-    //         "type": "fill",
-    //         "source": "buffgeojson",
-    //         "paint": {
-    //             'fill-color': "blue",
-    //             'fill-opacity': 0.5,
-    //             'fill-outline-color': "black"
-    //         }
-    //     });
-    //     map.setLayoutProperty(
-    //         'inputpointbuff',
-    //         'visibility',
-    //         e.target.checked ? 'visible' : 'none'
-    //     );
-
-    //     // Optionally disable the button after click
-    //     document.getElementById('buffcheck').disabled = true;
-    // });
 
     // Assume global scope for heatjson to be accessible inside the event listener
     var heatjson;
@@ -247,8 +170,15 @@ map.on('load', () => {
                     "type": "fill",
                     "source": "buffgeojson",
                     "paint": {
-                        'fill-color': "blue",
-                        'fill-opacity': 0.5,
+                        'fill-color': [
+                            'match',
+                            ['get', 'NewLocation'],
+                            'Pool', '#2e3ac1',
+                            'Shelter Services', '#640b89',
+                            'Library', '#00c1bd',
+                            'Community Centre', '#CA6F1E',
+                            '#2E4053'],
+                        'fill-opacity': 0.3,
                         'fill-outline-color': "black"
                     }
                 });
@@ -262,4 +192,26 @@ map.on('load', () => {
             e.target.checked ? 'visible' : 'none'
         );
     });
+
+    // Adding pop up for heat relief center points showing what type of facility it is
+    map.on('click', 'center-points', (e) => {
+        //event listener for clicking on point
+       const coordinates = e.features[0].geometry.coordinates.slice();
+       // Retrieves properties
+       const properties = e.features[0].properties;
+       // Generating text including multiple properties
+       let display = '<h6>Location Details</h6>';
+       display += '<strong>Name:</strong> ' + properties.locationName + '<br>';
+       display += '<strong>Address:</strong> ' + properties.address + '<br>';
+
+       new mapboxgl.Popup()
+           // Creating the popup display
+           .setLngLat(coordinates)
+           // Makes the popup appear at the point features coordinates
+           .setHTML(display)
+           // Retrieves the display property which has been set above
+           .addTo(map);
+       // Adds popup to map
+   });
+    
 })

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title -->
-    <title>About us</title>
+    <title>Data</title>
     <!-- Linking mapbox -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
@@ -74,11 +74,11 @@
                     </li>
                     <!-- Data -->
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="data.html">Data</a>
+                        <a class="nav-link active" aria-current="page" href="data.html">Data</a>
                     </li>
                     <!-- About Us -->
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="aboutus.html">About Us</a>
+                        <a class="nav-link" aria-current="page" href="aboutus.html">About Us</a>
                     </li>
                 </ul>
                 </li>
@@ -87,47 +87,67 @@
     </nav>
 
     <div class="container text-center p-4 mb-5 bg-white text-blue">
-        <h4>Meet the Team</h4>
+        <h4>Data Sources</h4>
         <br>
         <div class="card-group">
             <div class="card">
-                <img src="images/Ahmad.JPG" class="card-img-top" alt="...">
+                <img src="images/toronto.jpg" class="card-img-top img-fluid" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Ahmad Ashraf</h5>
+                    <h5 class="card-title">City of Toronto Open Data</h5>
                     <p class="card-text"> 
-                        Ahmad is a fourth-year student at the University of Toronto, pursuing a 
-                        double major in Statistics and Economics with a focus in Data Analytics. 
-                        With a keen eye for detail and a love for numbers, Ahmad enjoys applying 
-                        his skills to explore and solve complex problems in sports analytics. 
-                        Outside of university, he is passionate about cricket, is an avid
-                        photographer, and enjoys chasing the northern lights.
+                        <b>Green Spaces</b> is a geospatial dataset of polygons that is a point-in-time 
+                        generalized representation of existing parks and open spaces within the 
+                        City of Toronto. Green Spaces includes public parks, beaches, parts of 
+                        ravines, golf courses, cemeteries, and other open space areas such as 
+                        those offered by various private institutions. These spaces may or may 
+                        not be publicly accessible and are either publicly owned/maintained or 
+                        they are privately owned/maintained. Green Spaces is not an exhaustive 
+                        dataset of all the public and private parks and open spaces within the 
+                        City. It does not encompass all areas protected by the Ravine and Natural 
+                        Feature Protection By-Law, by Environmentally Significant Areas or by 
+                        Natural Heritage Areas. 
                     </p>
                 </div>
             </div>
             <div class="card">
-                <img src="images/Natali.jpg" class="card-img-top" alt="...">
+                <img src="images/favicon.ico" class="card-img-top img-fluid" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Natali Keckesova</h5>
+                    <h5 class="card-title">Canue Data Portal</h5>
                     <p class="card-text"> 
-                        Natali is a third-year student at the University of Toronto pursuing a 
-                        double major in Environmental Geography and Human Geography with a Focus 
-                        in Planning, and a minor in GIS. She is particularly interested in 
-                        examining accessibility to public spaces and active transportation. 
-                        In her spare time, she loves to explore the outdoors and see the green 
-                        spaces Toronto has to offer.
+                        Top of Atmosphere (TOA) reflectance data in bands from the USGS Landsat 5 
+                        and Landsat 8 satellites were accessed via Google Earth Engine. CANUE 
+                        staff used Google Earth Engine functions to create cloud free annual 
+                        composites, and mask water features, then export the resulting band data. 
+                        NDVI indices were calculated as (band 4 - Band 3)/(Band 4 Band 3) for 
+                        Landsat 5 data, and as (band 5 - band 4)/(band 5 Band 4) for Landsat 8 
+                        data. These composites are created from all the scenes in each annual 
+                        period beginning from the first day of the year and continuing to the 
+                        last day of the year. No data were available for 2012, due to 
+                        decommissioning of Landsat 5 in 2011 prior to the start of Landsat 8 in 
+                        2013. No cross-calibration between the sensors was performed, please be 
+                        aware there may be small bias differences between NDVI values calculated 
+                        using Landsat 5 and Landsat 8. Final NDVI metrics were linked to all 
+                        6-digit DMTI Spatial single link postal code locations in Canada, and for 
+                        surrounding areas within 100m, 250m, 500m, and 1km. This project used the 
+                        3 year annual Max of Means between 2019 and 2021.
                     </p>
                 </div>
             </div>
             <div class="card">
-                <img src="images/Owen.jpg" class="card-img-top" alt="...">
+                <img src="images/toronto.jpg" class="card-img-top img-fluid" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Owen Darling</h5>
+                    <h5 class="card-title">City of Toronto Open Data</h5>
                     <p class="card-text"> 
-                        Owen is a fourth-year student at the University of Toronto, pursuing a 
-                        specialization in Human Geography with a Focus in planning.  From his 
-                        studies Owen is looking to pursue a career in planning after his studies 
-                        are completed. Outside of school Owen is passionate about the outdoors 
-                        and enjoys camping and hiking.
+                        The City of Toronto coordinates a <b>Heat Relief Network</b> throughout 
+                        the summer season from May 15 - September 30, which includes air 
+                        conditioned and cool spaces. The public can access cool spaces across the 
+                        City, including libraries, community centres, pools, splash pads, some 
+                        Civic Centres and City facilities, drop-ins and several private and 
+                        non-profit organizations, including shopping malls and YMCA locations. 
+                        These cool spaces are open to the public during their regular business 
+                        hours. This dataset includes information on the participating Heat Relief 
+                        Network locations. The dataset compiles information from a variety of 
+                        sources.
                     </p>
                 </div>
             </div>
