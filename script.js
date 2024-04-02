@@ -3,14 +3,19 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibmF0a2VjIiwiYSI6ImNscjZudnpsdjJhcm8ya21jMXJuY
 const map = new mapboxgl.Map({
     container: 'my-map',
     // map container ID
-    style: 'mapbox://styles/mapbox/standard',
+    style: 'mapbox://styles/mapbox/light-v11', //  mapbox://styles/mapbox/standard
     //my style URL
-    center: [-79.335115, 43.729266],
+    center: [-79.3832, 43.6992],
     // starting position (Toronto) [lng, lat] 
-    zoom: 10.5,
+    zoom: 10.1,
     // starting zoom, Toronto fits onto screen 
 });
 
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
+
+// Add full-screen control to the map.
+map.addControl(new mapboxgl.FullscreenControl());
 
 map.on('load', () => {
     // Adding data
@@ -33,6 +38,30 @@ map.on('load', () => {
     });
 
     //adding layers
+
+    map.addLayer({
+        //temp polygons 
+        'id': 'temp-polygon',
+        'type': 'fill',
+        'source': 'temp-data',
+        'paint': {
+            'fill-color': [
+                'step', // STEP expression produces stepped results based on value pairs
+                ['get', 'mean_lst_3'], // 
+                '#a64dff', // Colour assigned to any values < first step
+                27.0, '#fee5d9',// Colours assigned to values >= each step
+                28.0, '#fcbba1',
+                29.0, '#fc9272',
+                30.0, '#fb6a4a',
+                31.0, '#de2d26', //30.90 and higher
+                32.0, '#a50f15',
+            ],
+            'fill-opacity': 0.7,
+            'fill-outline-color': 'black'
+        }
+
+    });
+
     map.addLayer({
         //green space polygons
         'id': 'park-polygon',
@@ -55,11 +84,11 @@ map.on('load', () => {
             'circle-color': [
                 'match',
                 ['get', 'NewLocation'],
-                'Pool', '#5c99b5',
-                'Shelter Services', '#1b79d1',
-                'Library', '#1b79d1',
-                'Community Centre', '#1b79d1',
-                '#3b3b40'], // all other values 
+                'Pool', '#1b79d1',
+                'Shelter Services', '#795cbf',
+                'Library', '#e3a92b',
+                'Community Centre', '#1659cc',
+                '#5c99b5'], // all other values 
             //using match to give each of the identified facilities a different color
             'circle-stroke-color': 'hsl(60, 68%, 57%)',
             //gold rim to points
@@ -87,7 +116,32 @@ map.on('load', () => {
             'fill-opacity': 0.7,
             'fill-outline-color': 'black'
         }
+    })
 
+    //Using Checked box to add and remove layers
+    //For Park Polygon
+    document.getElementById('parkcheck').addEventListener('change', (e) => {
+        map.setLayoutProperty(
+            'park-polygon',
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+        );
+    });
+    //For Points
+    document.getElementById('pointcheck').addEventListener('change', (e) => {
+        map.setLayoutProperty(
+            'center-points',
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+        );
+    });
+    //For Temp
+    document.getElementById('tempcheck').addEventListener('change', (e) => {
+        map.setLayoutProperty(
+            'temp-polygon',
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+        );
     });
 
     //Using Checked box to add and remove layers
