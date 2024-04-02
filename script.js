@@ -144,53 +144,122 @@ map.on('load', () => {
         );
     });
 
-    //Buffers
+    // //Buffers
+    // // Fetch GeoJSON from URL and store response
+    // fetch('https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson')
+    //     .then(response => response.json())
+    //     .then(response => {
+    //         console.log(response); //Check response in console
+    //         heatjson = response; // Store geojson as variable using URL from fetch response
+    //     });
+
+    // document.getElementById('buffcheck').addEventListener('change', (e) => {
+
+    //     // Create empty feature collection for buffers
+    //     let buffresult = {
+    //         "type": "FeatureCollection",
+    //         "features": []
+    //     };
+
+    //     // Loop through each point in the GeoJSON and create buffers
+    //     heatjson.features.forEach((feature) => {
+
+    //         // 1. Create variable for buffer and use turf.buffer function
+    //         let buffer = turf.buffer(feature, 1, { units: 'kilometers' }); // Adjust buffer distance and units as needed
+
+    //         // 2. Use features.push to add the buffer feature to the empty feature collection
+    //         buffresult.features.push(buffer);
+
+    //     });
+
+    //     // Use addSource mapbox method with buffer GeoJSON variable (buffresult) as data source
+    //     map.addSource('buffgeojson', {
+    //         "type": "geojson",
+    //         "data": buffresult // Use buffer GeoJSON variable as data source
+    //     });
+
+    //     // Show buffers on map using styling
+    //     map.addLayer({
+    //         "id": "inputpointbuff",
+    //         "type": "fill",
+    //         "source": "buffgeojson",
+    //         "paint": {
+    //             'fill-color': "blue",
+    //             'fill-opacity': 0.5,
+    //             'fill-outline-color': "black"
+    //         }
+    //     });
+    //     map.setLayoutProperty(
+    //         'inputpointbuff',
+    //         'visibility',
+    //         e.target.checked ? 'visible' : 'none'
+    //     );
+
+    //     // Optionally disable the button after click
+    //     document.getElementById('buffcheck').disabled = true;
+    // });
+
+    // Assume global scope for heatjson to be accessible inside the event listener
+    var heatjson;
+
     // Fetch GeoJSON from URL and store response
     fetch('https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson')
         .then(response => response.json())
-        .then(response => {
-            console.log(response); //Check response in console
-            heatjson = response; // Store geojson as variable using URL from fetch response
+        .then(data => {
+            console.log(data); // Check response in console
+            heatjson = data; // Store geojson as variable
         });
 
-    document.getElementById('buffbutton').addEventListener('click', () => {
+    document.getElementById('buffcheck').addEventListener('change', (e) => {
+        // Check if the map already has the source and layer
+        const sourceExists = map.getSource('buffgeojson');
+        const layerExists = map.getLayer('inputpointbuff');
 
-        // Create empty feature collection for buffers
-        let buffresult = {
-            "type": "FeatureCollection",
-            "features": []
-        };
+        // If the source or layer doesn't exist, create them
+        if (!sourceExists || !layerExists) {
+            // Create empty feature collection for buffers only if it doesn't exist
+            let buffresult = {
+                "type": "FeatureCollection",
+                "features": []
+            };
 
-        // Loop through each point in the GeoJSON and create buffers
-        heatjson.features.forEach((feature) => {
-
-            // 1. Create variable for buffer and use turf.buffer function
-            let buffer = turf.buffer(feature, 1, { units: 'kilometers' }); // Adjust buffer distance and units as needed
-
-            // 2. Use features.push to add the buffer feature to the empty feature collection
-            buffresult.features.push(buffer);
-
-        });
-
-        // Use addSource mapbox method with buffer GeoJSON variable (buffresult) as data source
-        map.addSource('buffgeojson', {
-            "type": "geojson",
-            "data": buffresult // Use buffer GeoJSON variable as data source
-        });
-
-        // Show buffers on map using styling
-        map.addLayer({
-            "id": "inputpointbuff",
-            "type": "fill",
-            "source": "buffgeojson",
-            "paint": {
-                'fill-color': "blue",
-                'fill-opacity': 0.5,
-                'fill-outline-color': "black"
+            // Assuming heatjson is loaded and contains features
+            if (heatjson && heatjson.features) {
+                // Loop through each point in the GeoJSON and create buffers
+                heatjson.features.forEach((feature) => {
+                    let buffer = turf.buffer(feature, 1, { units: 'kilometers' });
+                    buffresult.features.push(buffer);
+                });
             }
-        });
 
-        // Optionally disable the button after click
-        document.getElementById('buffbutton').disabled = true;
+            // Add or define the source only if it doesn't exist
+            if (!sourceExists) {
+                map.addSource('buffgeojson', {
+                    "type": "geojson",
+                    "data": buffresult
+                });
+            }
+
+            // Add or define the layer only if it doesn't exist
+            if (!layerExists) {
+                map.addLayer({
+                    "id": "inputpointbuff",
+                    "type": "fill",
+                    "source": "buffgeojson",
+                    "paint": {
+                        'fill-color': "blue",
+                        'fill-opacity': 0.5,
+                        'fill-outline-color': "black"
+                    }
+                });
+            }
+        }
+
+        // Toggle visibility based on the checkbox's state
+        map.setLayoutProperty(
+            'inputpointbuff',
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+        );
     });
 })
