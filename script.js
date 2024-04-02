@@ -144,33 +144,6 @@ map.on('load', () => {
         );
     });
 
-    //Using Checked box to add and remove layers
-    //For Park Polygon
-    document.getElementById('parkcheck').addEventListener('change', (e) => {
-        map.setLayoutProperty(
-            'park-polygon',
-            'visibility',
-            e.target.checked ? 'visible' : 'none'
-        );
-    });
-    //For Points
-    document.getElementById('pointcheck').addEventListener('change', (e) => {
-        map.setLayoutProperty(
-            'center-points',
-            'visibility',
-            e.target.checked ? 'visible' : 'none'
-        );
-    });
-    //For Temp
-    document.getElementById('tempcheck').addEventListener('change', (e) => {
-        map.setLayoutProperty(
-            'temp-polygon',
-            'visibility',
-            e.target.checked ? 'visible' : 'none'
-        );
-    });
-
-
     //Buffers
     // Fetch GeoJSON from URL and store response
     fetch('https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson')
