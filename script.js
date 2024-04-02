@@ -20,7 +20,7 @@ map.on('load', () => {
         data: 'https://natalikec.github.io/Lab_3/Data_Lab3/green_spaces.geojson',
     });
 
-    map.addSource('heatrelief-data', {
+    map.addSource('heatrelief', {
         //adding heat relief geojson file
         type: 'geojson',
         data: 'https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson',
@@ -49,7 +49,7 @@ map.on('load', () => {
         //adding heat relief netowork
         'id': 'center-points',
         'type': 'circle',
-        'source': 'heatrelief-data',
+        'source': 'heatrelief',
         'paint': {
             'circle-radius': 5.5,
             'circle-color': [
@@ -66,7 +66,7 @@ map.on('load', () => {
             'circle-stroke-width': 0.5
         }
     })
-    
+
     map.addLayer({
         //temp polygons NOT WORKING
         'id': 'temp-polygon',
@@ -90,4 +90,80 @@ map.on('load', () => {
 
     });
 
+    //Using Checked box to add and remove layers
+    //For Park Polygon
+    document.getElementById('parkcheck').addEventListener('change', (e) => {
+        map.setLayoutProperty(
+            'park-polygon',
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+        );
+    });
+    //For Points
+    document.getElementById('pointcheck').addEventListener('change', (e) => {
+        map.setLayoutProperty(
+            'center-points',
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+        );
+    });
+    //For Temp
+    document.getElementById('tempcheck').addEventListener('change', (e) => {
+        map.setLayoutProperty(
+            'temp-polygon',
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+        );
+    });
+
+
+    //Buffers
+    // Fetch GeoJSON from URL and store response
+    fetch('https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson')
+        .then(response => response.json())
+        .then(response => {
+            console.log(response); //Check response in console
+            heatjson = response; // Store geojson as variable using URL from fetch response
+        });
+
+    document.getElementById('buffbutton').addEventListener('click', () => {
+
+        // Create empty feature collection for buffers
+        let buffresult = {
+            "type": "FeatureCollection",
+            "features": []
+        };
+
+        // Loop through each point in the GeoJSON and create buffers
+        heatjson.features.forEach((feature) => {
+
+            // 1. Create variable for buffer and use turf.buffer function
+            let buffer = turf.buffer(feature, 1, { units: 'kilometers' }); // Adjust buffer distance and units as needed
+
+            // 2. Use features.push to add the buffer feature to the empty feature collection
+            buffresult.features.push(buffer);
+
+        });
+
+        // Use addSource mapbox method with buffer GeoJSON variable (buffresult) as data source
+        map.addSource('buffgeojson', {
+            "type": "geojson",
+            "data": buffresult // Use buffer GeoJSON variable as data source
+        });
+
+        // Show buffers on map using styling
+        map.addLayer({
+            "id": "inputpointbuff",
+            "type": "fill",
+            "source": "buffgeojson",
+            "paint": {
+                'fill-color': "blue",
+                'fill-opacity': 0.5,
+                'fill-outline-color': "black"
+            }
+        });
+
+        // Optionally disable the button after click
+        document.getElementById('buffbutton').disabled = true;
+    });
 })

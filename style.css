@@ -49,4 +49,42 @@
     width: 20px;
     height: 10px;
     margin-right: 5px;
+<<<<<<< Updated upstream
+=======
+
+}
+
+/*Placement of adding/removing layers checkbox*/
+.map-data-container {
+    position: relative;
+    font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background: rgba(255, 255, 255, 0.8);
+    width: 260px;
+    top: 0;
+    left: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    overflow: visible;
+}
+
+/* MAYBE */
+.map-overlay {
+    position: relative;
+    font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background: rgba(255, 255, 255, 0.8);
+    top: 0;
+    left: 0;
+    width: 260px;
+    margin: 10px 0 0 10px;
+    padding: 10px;
+    /*around elements inside of overlay*/
+    overflow: visible;
+}
+
+
+.btn {
+    position: relative;
+    margin: 10px 0 10px;
+    width: 100%;
+>>>>>>> Stashed changes
 }
