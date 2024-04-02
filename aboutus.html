@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toronto Heat Relief Network</title>
-    <!--Linking mapbox-->
+    <!-- Title -->
+    <title>About us</title>
+    <!-- Linking mapbox -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
     <!--Linking mapbox geocoder-->
@@ -44,7 +45,7 @@
                     <!-- sections in nav bar -->
                     <!-- Brings you to the home page (map) -->
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                        <a class="nav-link" aria-current="page" href="index.html">Home</a>
                     </li>
                     <!--Drowpdown Menu-->
                     <li class="nav-item dropdown">
@@ -73,7 +74,7 @@
                     </li>
                     <!-- Brings you to About Us -->
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="aboutus.html">About Us</a>
+                        <a class="nav-link active" aria-current="page" href="aboutus.html">About Us</a>
                     </li>
                 </ul>
                 </li>
@@ -81,68 +82,53 @@
         </div>
     </nav>
 
-    <!-- Map and Sidebar container -->
-    <div class="content-container">
-
-        <!-- Adding map to webpage -->
-        <div id="my-map" class="map-container"></div>
-
-        <!-- Sidebar for Legend and Layers -->
-        <div class="sidebar">
-            
-            <!-- Adding and removing layers -->
-            <div class='layers-control'>
-                <h5> Add/Remove Layers </h5>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="parkcheck" checked>
-                    Green Spaces
-                </div>
-        
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="pointcheck" checked>
-                    Heat Relief Network
-                </div>
-        
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="tempcheck" checked>
-                    Temperature
+    <div class="container text-center p-4 mb-5 bg-white text-blue">
+        <h4>Meet the Team</h4>
+        <br>
+        <div class="card-group">
+            <div class="card">
+                <img src="images/Ahmad.JPG" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Ahmad Ashraf</h5>
+                    <p class="card-text"> 
+                        Ahmad is a fourth-year student at the University of Toronto, pursuing a 
+                        double major in Statistics and Economics with a focus in Data Analytics. 
+                        With a keen eye for detail and a love for numbers, Ahmad enjoys applying 
+                        his skills to explore and solve complex problems in sports analytics. 
+                        Outside of university, he is passionate about cricket, is an avid
+                        photographer, and enjoys chasing the northern lights.
+                    </p>
                 </div>
             </div>
-
-            <!-- Adding Legend -->
-            <div id="legend">
-                <h5> Heat Relief Points </h5>
-                <div><span style="background-color: #1659cc;"></span> Community Centres </div>
-                <div><span style="background-color: #e3a92b;"></span> Library </div>
-                <div><span style="background-color: #5c99b5;"></span> Mall </div>
-                <div><span style="background-color: #1b79d1;"></span> Pool </div>
-                <div><span style="background-color: #795cbf;"></span> Shelter Services </div>
-                <br>
-                <h5>Color Schemes</h5>
-                <div><span2 style="background-color: #3a7e54;"></span2> Greenspace </div>
+            <div class="card">
+                <img src="images/Natali.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Natali Keckesova</h5>
+                    <p class="card-text"> 
+                        Natali is a third-year student at the University of Toronto pursuing a 
+                        double major in Environmental Geography and Human Geography with a Focus 
+                        in Planning, and a minor in GIS. She is particularly interested in 
+                        examining accessibility to public spaces and active transportation. 
+                        In her spare time, she loves to explore the outdoors and see the green 
+                        spaces Toronto has to offer.
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="images/Owen.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Owen Darling</h5>
+                    <p class="card-text"> 
+                        Owen is a fourth-year student at the University of Toronto, pursuing a 
+                        specialization in Human Geography with a Focus in planning.  From his 
+                        studies Owen is looking to pursue a career in planning after his studies 
+                        are completed. Outside of school Owen is passionate about the outdoors 
+                        and enjoys camping and hiking.
+                    </p>
+                </div>
             </div>
         </div>
-        
     </div>
-
-    <!-- Adding and removing layers
-    <div class='map-data-container'>
-        <label>Add/Remove Layers</label>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="parkcheck" checked>
-            Green Spaces
-        </div>
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="pointcheck" checked>
-            Heat Relief Network
-        </div>
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="tempcheck" checked>
-            Temperature
-        </div>
-    </div> -->
     
     <!-- Linking external JavaScript files (note - need the second link for dropdown menu to work) -->
     <script src="script.js"></script>
