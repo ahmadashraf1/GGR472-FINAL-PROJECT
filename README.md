@@ -8,13 +8,16 @@
 The urban heat island effect occurs in dense urban environments which are filled with paved surfaces and closely packed buildings, resulting in heat being trapped more efficiently. In cities like Toronto, providing spaces for the population to cool down, such as airconditioned spaces or shaded vegetation areas, is vital as prolonged exposure to excessive heat can have negative effects on one's health
 
 ### Content 
-...Edit
-Map showing point features which have been classified to reflect what type of facility they represent.  
-The map displaces a pop-up when a point feature is clicked, showing the location name where the facility can be accessed. 
-The navigation bar includes links to Toronto's heat Relief Strategy and Climate Atlas of Canada's Urban Heat Island information page. 
-#### Interactivity
-#### Aim
+The focus of this web map is to identify Toronto’s heat relief network and compare that to the max of mean neighborhood temperature and proximity of heat relief points. Using past averages to identify areas within the city that are historically affected by higher temperatures will allow for areas with high temperatures and low heat relief to be identified. Providing information about Toronto’s heat relief strategy and general information on heat islands gives context to the current strategy that is in place. 
 
+#### Interactivity
+All layers can be toggled on and off. 
+- Heat Relief Network 
+- Green Spaces 
+- Average neighborhood Temperature
+- Isochrone map showing area within a 10 minute walk of a facility.
+When a heat relief facility point is clicked, the name and address of the facility is displayed. 
+Additional links in the navigational bar.
 
 ### Data Sources 
 - [Heat Relief Network](https://open.toronto.ca/dataset/air-conditioned-and-cool-spaces-heat-relief-network/)
