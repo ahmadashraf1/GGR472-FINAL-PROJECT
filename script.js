@@ -18,7 +18,7 @@ map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.FullscreenControl());
 
 map.on('load', () => {
-    
+
     // ADDING SOURCES
 
     map.addSource('park-data', {
@@ -132,94 +132,178 @@ map.on('load', () => {
         );
     });
 
+//Isochrone 2
+let heatDataCache = null;
 
-
-    //ISOCHRONE
-
-    // Fetching the heat relief network GeoJSON data
-    fetch('https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson')
-        .then(response => response.json())
-        .then(heatData => {
-            // Ensure the heat data source is added to the map
-            map.addSource('heat', {
-                type: 'geojson',
-                data: heatData
-            });
-        })
-
-        //display in console if fetching does not work
-        .catch(error => console.error('Error fetching heat data:', error));
-
-    // Definition of fetchIsochroneData remains the same
-    function fetchIsochroneData(coordinates) {
-        // Parameters for API - 10 min walk
-        const params = {
-            contours_minutes: [10],
-            polygons: true,
-            access_token: mapboxgl.accessToken
-        };
-
-        // URL for the Isochrone API request
-        const apiUrl = 'https://api.mapbox.com/isochrone/v1/mapbox/walking/';
-        const urlParams = new URLSearchParams(params).toString();
-        const url = `${apiUrl}${coordinates[0]},${coordinates[1]}.json?${urlParams}`;
-
-        // Fetch the isochrone data
-        fetch(url)
+// Function to fetch and cache Heat Relief Network data
+function fetchAndCacheHeatData() {
+    if (!heatDataCache) {
+        return fetch('https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson')
             .then(response => response.json())
-            .then(data => {
-                // Unique ID for source and layer to avoid conflicts
-                const isoSource = `isochrone-${coordinates.join('-')}`;
-                if (!map.getSource(isoSource)) {
-                    map.addSource(isoSource, {
-                        type: 'geojson',
-                        data: data
-                    });
-                }
-
-                // Displaying isochrone layer
-                const isoLay = `isochrone-layer-${coordinates.join('-')}`;
-                if (!map.getLayer(isoLay)) {
-                    map.addLayer({
-                        id: isoLay,
-                        type: 'fill',
-                        source: isoSource,
-                        paint: {
-                            'fill-color': '#214273',
-                            'fill-opacity': 0.3
-                        }
-                    });
-                }
+            .then(heatData => {
+                heatDataCache = heatData; // Cache it
+                return heatData; // Return for immediate use
             })
-
-            //Display in console if Isochrone does not load
-            .catch(error => console.error('Error fetching Isochrone data:', error));
+            .catch(error => console.error('Error fetching heat data:', error));
+    } else {
+        return Promise.resolve(heatDataCache); // Return cached data
     }
+}
 
-    // Display isochrone only when checkbox checked
-    document.getElementById('isochroneCheck').addEventListener('change', (event) => {
-        const checked = event.target.checked;
-        if (checked) {
-            fetch('https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson')
-                .then(response => response.json())
-                .then(heatData => {
-                    heatData.features.forEach(feature => {
-                        const coordinates = feature.geometry.coordinates;
-                        fetchIsochroneData(coordinates);
-                    });
-                })
-                .catch(error => console.error('Error fetching heat data:', error));
-        } else {
-            // Hide the isochrone layers when unchecked
-            const isochroneisoLays = map.getStyle().layers
-                .filter(layer => layer.id.startsWith('isochrone-layer-'))
-                .map(layer => layer.id);
+// Ensuring the heat data source is added to the map initially or using cached data
+fetchAndCacheHeatData().then(heatData => {
+    if (!map.getSource('heat')) {
+        map.addSource('heat', {
+            type: 'geojson',
+            data: heatData
+        });
+    }
+});
 
-            isochroneisoLays.forEach(isoLay => {
-                map.setLayoutProperty(isoLay, 'visibility', 'none');
-            });
-        }
+// Parameters for Isochrone API request
+function fetchIsochroneData(coordinates) {
+    const params = {
+        contours_minutes: [10],
+        polygons: true,
+        access_token: mapboxgl.accessToken
+    };
+    const apiUrl = 'https://api.mapbox.com/isochrone/v1/mapbox/walking/';
+    const urlParams = new URLSearchParams(params).toString();
+    const url = `${apiUrl}${coordinates[0]},${coordinates[1]}.json?${urlParams}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const isoSource = `isochrone-${coordinates.join('-')}`;
+            if (!map.getSource(isoSource)) {
+                map.addSource(isoSource, {
+                    type: 'geojson',
+                    data: data
+                });
+            }
+            const isoLay = `isochrone-layer-${coordinates.join('-')}`;
+            if (!map.getLayer(isoLay)) {
+                map.addLayer({
+                    id: isoLay,
+                    type: 'fill',
+                    source: isoSource,
+                    paint: {
+                        'fill-color': '#214273',
+                        'fill-opacity': 0.3
+                    }
+                });
+            }
+        })
+        .catch(error => console.error('Error fetching Isochrone data:', error));
+}
+
+// Toggling isochrone layer visibility based on checkbox
+document.getElementById('isochroneCheck').addEventListener('change', (event) => {
+    const checked = event.target.checked;
+    fetchAndCacheHeatData().then(heatData => {
+        heatData.features.forEach(feature => {
+            const coordinates = feature.geometry.coordinates;
+            const isoLay = `isochrone-layer-${coordinates.join('-')}`;
+
+            if (checked) {
+                fetchIsochroneData(coordinates);
+            } else {
+                if (map.getLayer(isoLay)) {
+                    map.setLayoutProperty(isoLay, 'visibility', 'none');
+                }
+            }
+        });
     });
+});
+
+
+
+    // //ISOCHRONE
+
+    // // Fetching the heat relief network GeoJSON data
+    // fetch('https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson')
+    //     .then(response => response.json())
+    //     .then(heatData => {
+    //         // Ensure the heat data source is added to the map
+    //         map.addSource('heat', {
+    //             type: 'geojson',
+    //             data: heatData
+    //         });
+    //     })
+
+    //     //display in console if fetching does not work
+    //     .catch(error => console.error('Error fetching heat data:', error));
+
+    // // Parameters
+    // function fetchIsochroneData(coordinates) {
+    //     // Parameters for API - 10 min walk and turning it into polygons
+    //     const params = {
+    //         contours_minutes: [10],
+    //         polygons: true,
+    //         access_token: mapboxgl.accessToken
+    //     };
+
+    //     // URL for the Isochrone API request
+    //     const apiUrl = 'https://api.mapbox.com/isochrone/v1/mapbox/walking/';
+    //     const urlParams = new URLSearchParams(params).toString();
+    //     const url = `${apiUrl}${coordinates[0]},${coordinates[1]}.json?${urlParams}`;
+
+    //     // Fetch the isochrone data
+    //     fetch(url)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // Unique ID for source and layer to avoid conflicts
+    //             const isoSource = `isochrone-${coordinates.join('-')}`;
+    //             if (!map.getSource(isoSource)) {
+    //                 map.addSource(isoSource, {
+    //                     type: 'geojson',
+    //                     data: data
+    //                 });
+    //             }
+
+    //             // Displaying isochrone layer
+    //             const isoLay = `isochrone-layer-${coordinates.join('-')}`;
+    //             if (!map.getLayer(isoLay)) {
+    //                 map.addLayer({
+    //                     id: isoLay,
+    //                     type: 'fill',
+    //                     source: isoSource,
+    //                     paint: {
+    //                         'fill-color': '#214273',
+    //                         'fill-opacity': 0.3
+    //                     }
+    //                 });
+    //             }
+    //         })
+
+    //         //Display in console if Isochrone does not load
+    //         .catch(error => console.error('Error fetching Isochrone data:', error));
+    // }
+
+    // // Display isochrone only when checkbox checked
+    // document.getElementById('isochroneCheck').addEventListener('change', (event) => {
+    //     const checked = event.target.checked;
+    //     if (checked) {
+    //         fetch('https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson')
+    //             .then(response => response.json())
+    //             .then(heatData => {
+    //                 heatData.features.forEach(feature => {
+    //                     const coordinates = feature.geometry.coordinates;
+    //                     fetchIsochroneData(coordinates);
+    //                 });
+    //             })
+    //             .catch(error => console.error('Error fetching heat data when checked:', error));
+    //     } else {
+    //         // Hide the isochrone layers when unchecked
+    //         const isochroneisoLays = map.getStyle().layers
+    //             .filter(layer => layer.id.startsWith('isochrone-layer-'))
+    //             .map(layer => layer.id);
+
+    //         isochroneisoLays.forEach(isoLay => {
+    //             map.setLayoutProperty(isoLay, 'visibility', 'none');
+    //         });
+    //     }
+    // });
 
 
 
@@ -232,10 +316,19 @@ map.on('load', () => {
         // Retrieves properties
         const properties = e.features[0].properties;
         // Generating text
-        let display = '<strong>Location Details</strong>'+ '<br>';
+        let display = '<strong>Location Details</strong>' + '<br>';
         display += '<strong>Name:</strong> ' + properties.locationName + '<br>';
         display += '<strong>Address:</strong> ' + properties.address + '<br>';
- 
+
+        //Changing mouse to pointer when ver points 
+        map.on('mouseenter', 'center-points', () => {
+            map.getCanvas().style.cursor = 'pointer'; //changing to pointer
+
+        });
+        map.on('mouseleave', 'center-points', () => {
+            map.getCanvas().style.cursor = ''; //changing back when not over points
+
+        });
 
         new mapboxgl.Popup()
             // Creating the popup display
