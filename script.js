@@ -24,19 +24,19 @@ map.on('load', () => {
     map.addSource('park-data', {
         //adding green space geojson file
         type: 'geojson',
-        data: 'https://natalikec.github.io/Lab_3/Data_Lab3/green_spaces.geojson',
+        data: 'https://ahmadashraf1.github.io/GGR472-FINAL-PROJECT/Data/GreenSpaces.geojson',
     });
 
     map.addSource('heatrelief', {
         //adding heat relief geojson file
         type: 'geojson',
-        data: 'https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson',
+        data: 'https://ahmadashraf1.github.io/GGR472-FINAL-PROJECT/Data/HeatReliefNetwork.geojson',
     });
 
     map.addSource('temp-data', {
         //adding temp
         type: 'geojson',
-        data: 'https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/github_LST_neighb_TO_3Y_2019.geojson',
+        data: 'https://ahmadashraf1.github.io/GGR472-FINAL-PROJECT/Data/LSTNeighborhood.geojson',
     });
 
 
@@ -143,7 +143,7 @@ let cachedHeatData = null;
 function fetchHeatData() {
     if (!cachedHeatData) {
         // If the data hasn't been fetched yet, fetch it
-        return fetch('https://raw.githubusercontent.com/ahmadashraf1/GGR472-FINAL-PROJECT/main/HeatReliefNetwork.geojson')
+        return fetch('https://ahmadashraf1.github.io/GGR472-FINAL-PROJECT/Data/HeatReliefNetwork.geojson')
             .then(response => response.json())
             .then(heatData => {
                 cachedHeatData = heatData; // save data to heatData
