@@ -46,7 +46,7 @@ map.on('load', () => {
     map.addSource('heatrelief-data', {
         //adding heat relief geojson file
         type: 'geojson',
-        data: 'https://raw.githubusercontent.com/natalikec/Lab3/main/Data_Lab3/Air%20Conditioned%20and%20Cool%20Spaces%20copy.geojson',
+        data: 'https://natalikec.github.io/Lab_3/Data_Lab3/heat_relief.geojson',
     });
 
     map.addLayer({
@@ -69,38 +69,101 @@ map.on('load', () => {
         }
     });
 
-//HOVER EVENT Over Parks Plygons - USING setFeatureState() METHOD
+     // Fetch and add Isochrone data for each point in the heat relief GeoJSON source
+     fetch('https://natalikec.github.io/Lab_3/Data_Lab3/heat_relief.geojson')
+     .then(response => response.json())
+     .then(heatData => {
+         // Ensure the heat data source is added to the map
+         map.addSource('heat', {
+             type: 'geojson',
+             data: heatData
+         });
 
-let parkID = null; //Declare initial ID as null
+         // Iterate over each feature to fetch and display its isochrone
+         heatData.features.forEach(feature => {
+             const coordinates = feature.geometry.coordinates;
+             fetchIsochroneData(coordinates);
+         });
+     })
+     .catch(error => console.error('Error fetching heat data:', error));
 
-map.on('mousemove', 'park-polygon', (e) => {
-    if (e.features.length > 0) { //If there are features in array enter conditional
+ // Definition of fetchIsochroneData moved here for clarity
+ function fetchIsochroneData(coordinates) {
+     // Define the parameters for the Isochrone API request
+     const params = {
+         contours_minutes: [10], // Contour intervals in minutes
+         polygons: true, // Include polygons in the response
+         access_token: mapboxgl.accessToken // Mapbox API access token
+     };
 
-        if (parkID !== null) { //If parkID is not null, set hover feature state back to false to remove opacity from previous highlighted polygon
+     // Construct the URL for the Isochrone API request
+     const apiUrl = 'https://api.mapbox.com/isochrone/v1/mapbox/walking/';
+     const urlParams = new URLSearchParams(params).toString();
+     const url = `${apiUrl}${coordinates[0]},${coordinates[1]}.json?${urlParams}`;
+
+     // Fetch the isochrone data
+     fetch(url)
+         .then(response => response.json())
+         .then(data => {
+             // Unique ID for source and layer to avoid conflicts
+             const sourceId = `isochrone-${coordinates.join('-')}`;
+             if (!map.getSource(sourceId)) {
+                 map.addSource(sourceId, {
+                     type: 'geojson',
+                     data: data
+                 });
+             }
+
+             const layerId = `isochrone-layer-${coordinates.join('-')}`;
+             if (!map.getLayer(layerId)) {
+                 map.addLayer({
+                     id: layerId,
+                     type: 'fill',
+                     source: sourceId,
+                     paint: {
+                         'fill-color': '#fca90e', // Example fill color
+                         'fill-opacity': 0.5 // Adjust opacity as needed
+                     }
+                 });
+             }
+         })
+         .catch(error => console.error('Error fetching Isochrone data:', error));
+ }
+
+
+
+    //HOVER EVENT Over Parks Plygons - USING setFeatureState() METHOD
+
+    let parkID = null; //Declare initial ID as null
+
+    map.on('mousemove', 'park-polygon', (e) => {
+        if (e.features.length > 0) { //If there are features in array enter conditional
+
+            if (parkID !== null) { //If parkID is not null, set hover feature state back to false to remove opacity from previous highlighted polygon
+                map.setFeatureState(
+                    { source: 'park-data', id: parkID },
+                    { hover: false }
+                );
+            }
+
+            parkID = e.features[0].id; //Update parkID to featureID
+            map.setFeatureState(
+                { source: 'park-data', id: parkID },
+                { hover: true } //Update hover feature state to TRUE to change opacity of layer to 1
+            );
+        }
+    });
+
+
+    map.on('mouseleave', 'park-polygon', () => { //If mouse leaves the geojson layer, set all hover states to false and parkID variable back to null
+        if (parkID !== null) {
             map.setFeatureState(
                 { source: 'park-data', id: parkID },
                 { hover: false }
             );
         }
-
-        parkID = e.features[0].id; //Update parkID to featureID
-        map.setFeatureState(
-            { source: 'park-data', id: parkID },
-            { hover: true } //Update hover feature state to TRUE to change opacity of layer to 1
-        );
-    }
-});
-
-
-map.on('mouseleave', 'park-polygon', () => { //If mouse leaves the geojson layer, set all hover states to false and parkID variable back to null
-    if (parkID !== null) {
-        map.setFeatureState(
-            { source: 'park-data', id: parkID },
-            { hover: false }
-        );
-    }
-    parkID = null;
-});
+        parkID = null;
+    });
 
 
 
@@ -136,47 +199,7 @@ map.on('mouseleave', 'park-polygon', () => { //If mouse leaves the geojson layer
 
         }
     })
-    map.on('load', () => {
-        // Add event listener for mouseenter
-        map.on('mouseenter', 'center-points', (e) => {
-            // Change marker color when mouse enters
-            const hoveredFeatureId = e.features[0].id;
-            map.setPaintProperty('center-points', 'circle-color', [
-                'case',
-                ['==', ['id'], hoveredFeatureId], 'red', // Turn hovered marker red
-                ['match',
-                    ['get', 'locationCode'],
-                    'SPLASHPAD', '#5c99b5',
-                    'POOL', '#1b79d1',
-                    'INDOOR POOL', '#1b79d1',
-                    'OUTDOOR POOL', '#1b79d1',
-                    'WADING POOL', '#1b79d1',
-                    'LIBRARY', '#e3a92b',
-                    'COMM_CNTR', '#1659cc',
-                    'SSHA_SHELTER', '#795cbf',
-                    '#3b3b40'
-                ] // Keep other markers as their original colors
-            ]);
-        });
 
-        // Add event listener for mouseleave
-        map.on('mouseleave', 'center-points', () => {
-            // Revert marker color when mouse leaves
-            map.setPaintProperty('center-points', 'circle-color', [
-                'match',
-                ['get', 'locationCode'],
-                'SPLASHPAD', '#5c99b5',
-                'POOL', '#1b79d1',
-                'INDOOR POOL', '#1b79d1',
-                'OUTDOOR POOL', '#1b79d1',
-                'WADING POOL', '#1b79d1',
-                'LIBRARY', '#e3a92b',
-                'COMM_CNTR', '#1659cc',
-                'SSHA_SHELTER', '#795cbf',
-                '#3b3b40'
-            ]); // Define your color logic here
-        });
-    });
 
     //Using Checked box to add and remove layers
     //For Park Polygon
@@ -214,6 +237,7 @@ map.on('mouseleave', 'park-polygon', () => { //If mouse leaves the geojson layer
             .addTo(map);
         // adds popup tp map 
     });
+
 });
 
 
