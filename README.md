@@ -11,13 +11,13 @@ The urban heat island effect occurs in dense urban environments which are filled
 The focus of this web map is to identify Toronto’s heat relief network and compare that to the max of mean neighborhood temperature and proximity of heat relief points. Using past averages to identify areas within the city that are historically affected by higher temperatures will allow for areas with high temperatures and low heat relief to be identified. Providing information about Toronto’s heat relief strategy and general information on heat islands gives context to the current strategy that is in place. 
 
 #### Interactivity
-All layers can be toggled on and off. 
-- Heat Relief Network 
-- Green Spaces 
-- Average neighborhood Temperature
-- Isochrone map showing area within a 10 minute walk of a facility.
-When a heat relief facility point is clicked, the name and address of the facility is displayed. 
-Additional links in the navigational bar.
+- All layers can be toggled on and off. 
+  - Heat Relief Network 
+  - Green Spaces 
+  - Average neighborhood Temperature
+  - Isochrone map showing area within a 10 minute walk of a facility.
+- When a heat relief facility point is clicked, the name and address of the facility is displayed. 
+- Additional links in the navigational bar.
 
 ### Data Sources 
 - [Heat Relief Network](https://open.toronto.ca/dataset/air-conditioned-and-cool-spaces-heat-relief-network/)
