@@ -2,7 +2,7 @@
 ## Toronto's Heat Relief Network and Analysis
 
 ### Webpage 
-[Link][Heat Relief Network](https://ahmadashraf1.github.io/GGR472-FINAL-PROJECT/) 
+[Link](https://ahmadashraf1.github.io/GGR472-FINAL-PROJECT/) 
 
 ### Context 
 The urban heat island effect occurs in dense urban environments which are filled with paved surfaces and closely packed buildings, resulting in heat being trapped more efficiently. In cities like Toronto, providing spaces for the population to cool down, such as airconditioned spaces or shaded vegetation areas, is vital as prolonged exposure to excessive heat can have negative effects on one's health
